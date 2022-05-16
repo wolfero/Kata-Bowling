@@ -27,7 +27,7 @@ public class BowlingGameShould {
     public void make_spare_and_sum_the_following_roll() {
         var game = new Game();
 
-        game.roll(List.of(6,4, 5, 4, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0));
+        game.roll(List.of(6, 4, 5, 4, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0));
 
         assertThat(game.finalScore()).isEqualTo(15);
     }

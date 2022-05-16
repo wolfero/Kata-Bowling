@@ -24,9 +24,9 @@ public class Game {
             if (isStrike(currentRoll)) {
                 score += strike + rollScore(currentRoll + 1) + rollScore(currentRoll + 2);
                 currentRoll++;
-            } else if(isSpare(currentRoll)){
+            } else if (isSpare(currentRoll)) {
                 score += strike + rollScore(currentRoll + 2);
-                currentRoll+=2;
+                currentRoll += 2;
             }
         }
         return score;
