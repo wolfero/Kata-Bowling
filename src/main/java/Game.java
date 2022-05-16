@@ -14,7 +14,27 @@ public class Game {
         rolls.add(pinsDown);
     }
 
+    private final int maxFrames = 10;
+    private final int strike = 10;
+
     public int finalScore() {
-        return rolls.stream().mapToInt(score->score).sum();
+        var score = 0;
+        var currentRoll = 0;
+        for (int frame = 0; frame < maxFrames; frame++) {
+            if (isStrike(currentRoll)) {
+                score += strike + rollScore(currentRoll + 1) + rollScore(currentRoll + 2);
+                currentRoll++;
+            }
+        }
+
+        return score;
+    }
+
+    private boolean isStrike(int currentRoll) {
+        return rollScore(currentRoll) == strike;
+    }
+
+    private Integer rollScore(int cursor) {
+        return rolls.get(cursor);
     }
 }
