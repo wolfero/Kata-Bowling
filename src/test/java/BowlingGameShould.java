@@ -31,4 +31,13 @@ public class BowlingGameShould {
 
         assertThat(game.finalScore()).isEqualTo(15);
     }
+
+    @Test
+    public void make_real_game_rolls_and_get_theyr_score() {
+        var game = new Game();
+
+        game.roll(List.of(6, 4, 5, 4, 10, 10, 5, 5, 6, 4, 4, 0, 6, 2, 2, 0, 10, 5, 4));
+
+        assertThat(game.finalScore()).isEqualTo(132);
+    }
 }
