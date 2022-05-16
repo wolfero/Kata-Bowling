@@ -24,20 +24,23 @@ public class Game {
             if (isStrike(currentRoll)) {
                 score += strike + rollScore(currentRoll + 1) + rollScore(currentRoll + 2);
                 currentRoll++;
-            } else if(rollScore(currentRoll)+rollScore(currentRoll+1)==10){
+            } else if(isSpare(currentRoll)){
                 score += strike + rollScore(currentRoll + 2);
                 currentRoll+=2;
             }
         }
-
         return score;
+    }
+
+    private boolean isSpare(int currentRoll) {
+        return rollScore(currentRoll) + rollScore(currentRoll + 1) == strike;
     }
 
     private boolean isStrike(int currentRoll) {
         return rollScore(currentRoll) == strike;
     }
 
-    private Integer rollScore(int cursor) {
-        return rolls.get(cursor);
+    private Integer rollScore(int currentRoll) {
+        return rolls.get(currentRoll);
     }
 }
