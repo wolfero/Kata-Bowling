@@ -15,6 +15,6 @@ public class Game {
     }
 
     public int finalScore() {
-        return 0;
+        return rolls.stream().mapToInt(score->score).sum();
     }
 }
