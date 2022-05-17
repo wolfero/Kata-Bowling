@@ -1,49 +1,29 @@
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.Arguments;
+import org.junit.jupiter.params.provider.MethodSource;
 
 import java.util.List;
+import java.util.stream.Stream;
 
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 
 public class BowlingGameShould {
-    Game game;
-
-    @Before
-    public void setUp() {
-        game = new Game();
+    static Stream<Arguments> generateData() {
+        return Stream.of(
+                Arguments.of(0, List.of(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0)),
+                Arguments.of(26, List.of(10, 4, 4, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0)),
+                Arguments.of(24, List.of(6, 4, 5, 4, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0)),
+                Arguments.of(132, List.of(6, 4, 5, 4, 10, 10, 5, 5, 6, 4, 4, 0, 6, 2, 2, 0, 10, 5, 4))
+        );
     }
 
-    @Test
-    public void miss_all_pins_in_all_rolls() {
-        roll(List.of(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0));
+    @ParameterizedTest
+    @MethodSource("generateData")
+    public void save_frames_and_calculate_the_final_score(int expectedScore, List<Integer> rolls) {
+        Game game = new Game();
 
-        assertThat(game.finalScore()).isEqualTo(0);
-    }
+        game.saveRolls(rolls);
 
-    @Test
-    public void make_strike_and_sum_the_following_two_rolls() {
-        roll(List.of(10, 4, 4, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0));
-
-        assertThat(game.finalScore()).isEqualTo(26);
-    }
-
-    @Test
-    public void make_spare_and_sum_the_following_roll() {
-        roll(List.of(6, 4, 5, 4, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0));
-
-        assertThat(game.finalScore()).isEqualTo(24);
-    }
-
-    @Test
-    public void make_real_game_rolls_and_get_their_score() {
-        roll(List.of(6, 4, 5, 4, 10, 10, 5, 5, 6, 4, 4, 0, 6, 2, 2, 0, 10, 5, 4));
-
-        assertThat(game.finalScore()).isEqualTo(132);
-    }
-
-    private void roll(List<Integer> rolls) {
-        for (int pinsDown : rolls) {
-            game.saveRoll(pinsDown);
-        }
+        assertThat(game.finalScore()).isEqualTo(expectedScore);
     }
 }
