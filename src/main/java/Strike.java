@@ -7,7 +7,7 @@ public class Strike {
         return rolls.get(currentRoll) == value;
     }
 
-    public int sum(List<Integer> rolls, int rollIndex) {
+    public int score(List<Integer> rolls, int rollIndex) {
         return value + rolls.get(rollIndex + 1) + rolls.get(rollIndex + 2);
     }
 }

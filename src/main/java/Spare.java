@@ -5,7 +5,7 @@ public class Spare {
         return frameScore == 10;
     }
 
-    public int sum(List<Integer> rolls, int rollIndex) {
+    public int score(List<Integer> rolls, int rollIndex) {
         return 10 + rolls.get(rollIndex + 2);
     }
 }

@@ -23,7 +23,7 @@ public class Game {
         int score = 0;
         Strike strike = new Strike();
         if (strike.validate(rolls, rollIndex)) {
-            score += strike.sum(rolls, rollIndex);
+            score += strike.score(rolls, rollIndex);
             rollIndex++;
         } else {
             score += getSpareOrNormalScore();
@@ -34,10 +34,13 @@ public class Game {
 
     private int getSpareOrNormalScore() {
         Spare spare = new Spare();
-        Frame frame = new Frame(rolls, rollIndex);
+        Normal normal = new Normal(rolls, rollIndex);
+        final int normalScore = normal.score();
 
-        return (spare.validate(frame.score())) ?
-                spare.sum(rolls, rollIndex) :
-                frame.score();
+        if (spare.validate(normalScore)) {
+            return spare.score(rolls, rollIndex);
+        }
+
+        return normalScore;
     }
 }

@@ -1,9 +1,9 @@
 import java.util.List;
 
-public class Frame {
+public class Normal {
     private final int score;
 
-    public Frame(List<Integer> rolls, int rollIndex) {
+    public Normal(List<Integer> rolls, int rollIndex) {
         this.score = rolls.get(rollIndex) + rolls.get(rollIndex + 1);
     }
 
