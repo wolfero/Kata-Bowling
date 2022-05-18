@@ -22,7 +22,8 @@ public class Game {
     private int calculateFinalScore() {
         int score = 0;
         Strike strike = new Strike();
-        if (strike.validate(rolls, rollIndex)) {
+        var isStrike = strike.validate(rolls, rollIndex);
+        if (isStrike) {
             score += strike.score(rolls, rollIndex);
             rollIndex++;
         } else {
@@ -37,7 +38,8 @@ public class Game {
         Normal normal = new Normal(rolls, rollIndex);
         final int normalScore = normal.score();
 
-        if (spare.validate(normalScore)) {
+        var isSpare = spare.validate(normalScore);
+        if (isSpare) {
             return spare.score(rolls, rollIndex);
         }
 
